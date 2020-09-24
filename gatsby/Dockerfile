@@ -5,13 +5,10 @@ RUN npm install -g gatsby-cli
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install
 
-RUN ls
+RUN npm install
 
 COPY . .
 
-RUN ls node_modules/
-
 EXPOSE 8000
-CMD ["gatsby", "develop"]
+CMD ["gatsby", "develop", "-H", "0.0.0.0"]
