@@ -5,6 +5,9 @@ services:
     image: mariadb:latest
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpressUser
+      MYSQL_PASSWORD: wordpressPass
     volumes:
       - ./db:/var/lib/mysql
 
@@ -15,11 +18,16 @@ services:
 
   wordpress:
     image: wordpress:5.5.1-php7.4-apache
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpressUser
+      WORDPRESS_DB_PASSWORD: wordpressPass
+      WORDPRESS_DB_NAME: wordpress
     ports:
       - 8081:80
     volumes:
-      - ./wordpess/plugins:/var/www/html/wp-content/plugins
-      - ./wordpess/themes:/var/www/html/wp-content/themes
+      - ./wordpress/plugins:/var/www/html/wp-content/plugins
+      - ./wordpress/themes:/var/www/html/wp-content/themes
 
   gatsby:
     build: ./gatsby
@@ -27,3 +35,5 @@ services:
       - 8080:8000
     volumes:
       - ./gatsby:/app
+      - /app/node_modules
+      - /app/.cache

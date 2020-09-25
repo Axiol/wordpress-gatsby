@@ -1,8 +1,8 @@
 FROM node:14.11.0
 
-RUN npm install -g gatsby-cli
-
 WORKDIR /app
+
+RUN npm install -g gatsby-cli
 
 COPY package*.json ./
 
